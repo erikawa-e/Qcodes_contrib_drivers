@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>qcodes_contrib_drivers.drivers.Vaunix.LDA &mdash; qcodes_contrib_drivers 0.9.1+8.g34418c57 documentation</title>
+  <title>qcodes_contrib_drivers.drivers.Vaunix.LDA &mdash; qcodes_contrib_drivers 0.9.1+11.g567adef3 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.9.1+8.g34418c57
+                0.9.1+11.g567adef3
               </div>
             
           
@@ -90,7 +90,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../examples/index.html">Examples of how to use drivers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api/generated/qcodes_contrib_drivers.drivers.html">qcodes_contrib_drivers.drivers package</a></li>
@@ -420,12 +420,17 @@
         <span class="n">max_att</span> <span class="o">=</span> <span class="n">dll</span><span class="o">.</span><span class="n">fnLDA_GetMaxAttenuationHR</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaling</span>
         <span class="n">vals</span> <span class="o">=</span> <span class="n">Numbers</span><span class="p">(</span><span class="n">min_att</span><span class="p">,</span> <span class="n">max_att</span><span class="p">)</span>
 
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Attenuation&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">LdaChannel</span><span class="p">):</span>
+            <span class="c1"># prefix label to make channels more easily distinguishable in plots</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">instrument</span><span class="o">.</span><span class="n">short_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span>
                          <span class="n">dll_get_function</span><span class="o">=</span><span class="n">dll</span><span class="o">.</span><span class="n">fnLDA_GetAttenuationHR</span><span class="p">,</span>
                          <span class="n">dll_set_function</span><span class="o">=</span><span class="n">dll</span><span class="o">.</span><span class="n">fnLDA_SetAttenuationHR</span><span class="p">,</span>
                          <span class="n">vals</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span>
                          <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;dB&quot;</span><span class="p">,</span>
-                         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Attenuation&quot;</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
                          <span class="p">)</span></div>
 
@@ -447,11 +452,17 @@
 <span class="sd">            instrument: parent instrument, either LDA or LDA channel</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dll</span> <span class="o">=</span> <span class="n">instrument</span><span class="o">.</span><span class="n">root_instrument</span><span class="o">.</span><span class="n">dll</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Working frequency&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instrument</span><span class="p">,</span> <span class="n">LdaChannel</span><span class="p">):</span>
+            <span class="c1"># prefix label to make channels more easily distinguishable in plots</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">instrument</span><span class="o">.</span><span class="n">short_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span>
+
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span>
                          <span class="n">dll_get_function</span><span class="o">=</span><span class="n">dll</span><span class="o">.</span><span class="n">fnLDA_GetWorkingFrequency</span><span class="p">,</span>
                          <span class="n">dll_set_function</span><span class="o">=</span><span class="n">dll</span><span class="o">.</span><span class="n">fnLDA_SetWorkingFrequency</span><span class="p">,</span>
                          <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Hz&quot;</span><span class="p">,</span>
-                         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Working frequency&quot;</span><span class="p">,</span>
+                         <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                          <span class="n">docstring</span><span class="o">=</span><span class="s2">&quot;Frequency at which the &quot;</span>
                                    <span class="s2">&quot;attenuation is most accurate.&quot;</span><span class="p">,</span>
                          <span class="o">**</span><span class="n">kwargs</span>
